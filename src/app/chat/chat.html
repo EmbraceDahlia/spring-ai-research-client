@@ -4,18 +4,29 @@
   (click)="closeImagePreview()"
 >
   <div class="modal-content" (click)="$event.stopPropagation()">
+    
+    <!-- ❌ Cancel button in top-right -->
+    <button class="close-button" (click)="closeImagePreview()" title="Cancel">
+      &times;
+    </button>
+
+    <!-- Image Preview -->
     <img [src]="imagePreviewUrl" alt="Image Preview" />
-    <textarea
-      [(ngModel)]="imageQuestion"
-      rows="2"
-      placeholder="Type your question about the image..."
-      style="width: 100%; margin-top: 8px; resize: vertical;"
-    ></textarea>
-    <br />
-    <button (click)="uploadImageWithQuestion()">Send</button>
-    <button (click)="closeImagePreview()">Cancel</button>
+
+    <!-- Question textarea + send -->
+    <div class="textarea-wrapper">
+      <textarea
+        [(ngModel)]="imageQuestion"
+        rows="2"
+        placeholder="Type your question..."
+      ></textarea>
+      <button class="send-button" (click)="uploadImageWithQuestion()" title="Send">
+        <i class="bi bi-send"></i>
+      </button>
+    </div>
   </div>
 </div>
+
 
 <!-- Chat Container -->
 <div class="chat-container">
@@ -35,32 +46,47 @@
 
   <!-- Input Area -->
   <div class="input-area">
-    <textarea
-      [(ngModel)]="userInput"
-      rows="2"
-      placeholder="Type your message..."
-    ></textarea>
+  <textarea
+    [(ngModel)]="userInput"
+    rows="2"
+    placeholder="Type your question..."
+  ></textarea>
 
-    <div class="icon-buttons">
-      <input
-        type="file"
-        #imageInput
-        accept="image/*"
-        style="display: none"
-        (change)="onImageSelected($event)"
-      />
-      <input
-        type="file"
-        #fileInput
-        style="display: none"
-        (change)="onFileSelected($event)"
-      />
-      <button type="button" (click)="imageInput.click()" title="Attach Image">🖼️</button>
-      <button type="button" (click)="fileInput.click()" title="Attach File">📎</button>
-    </div>
+  <!-- Icons inside the input area -->
+  <div class="input-icons-inside">
+    <input
+      type="file"
+      #imageInput
+      accept="image/*"
+      style="display: none"
+      (change)="onImageSelected($event)"
+    />
+    <button type="button" (click)="imageInput.click()" title="Attach Image">
+      <i class="bi bi-image"></i>
+    </button>
 
-    <button (click)="sendMessage()" [disabled]="!userInput.trim()">Send</button>
+    <input
+      type="file"
+      #fileInput
+      style="display: none"
+      (change)="onFileSelected($event)"
+    />
+    <button type="button" (click)="fileInput.click()" title="Attach File">
+      <i class="bi bi-paperclip"></i>
+    </button>
+
+    <!-- Send Button -->
+    <button
+      type="button"
+      (click)="sendMessage()"
+      [disabled]="!userInput.trim()"
+      title="Send"
+    >
+      <i class="bi bi-send"></i>
+    </button>
   </div>
+</div>
+
 </div>
 
 

@@ -1,1 +1,7 @@
-/* You can add global styles to this file, and also import other style files */
+html, body {
+  margin: 0 auto !important;
+}/* You can add global styles to this file, and also import other style files */
+body{
+  background: linear-gradient(45deg, #f8d7da, #d1ecf1, #f0f0f0, #d4edda);
+  background-size: cover;
+}
