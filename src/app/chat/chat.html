@@ -1,0 +1,67 @@
+<div
+  class="modal-overlay"
+  *ngIf="imagePreviewUrl"
+  (click)="closeImagePreview()"
+>
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <img [src]="imagePreviewUrl" alt="Image Preview" />
+    <textarea
+      [(ngModel)]="imageQuestion"
+      rows="2"
+      placeholder="Type your question about the image..."
+      style="width: 100%; margin-top: 8px; resize: vertical;"
+    ></textarea>
+    <br />
+    <button (click)="uploadImageWithQuestion()">Send</button>
+    <button (click)="closeImagePreview()">Cancel</button>
+  </div>
+</div>
+
+<!-- Chat Container -->
+<div class="chat-container">
+  <h2>Personal Assistant</h2>
+
+  <!-- Chat Message Area -->
+  <div class="chat-window" #chatWindow>
+    <div *ngFor="let message of chatHistory" class="chat-message" [ngClass]="message.role">
+      <div class="bubble">
+        <ng-container *ngIf="message.image">
+          <img [src]="message.image" class="chat-image" />
+        </ng-container>
+        <div *ngIf="message.text">{{ message.text }}</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Input Area -->
+  <div class="input-area">
+    <textarea
+      [(ngModel)]="userInput"
+      rows="2"
+      placeholder="Type your message..."
+    ></textarea>
+
+    <div class="icon-buttons">
+      <input
+        type="file"
+        #imageInput
+        accept="image/*"
+        style="display: none"
+        (change)="onImageSelected($event)"
+      />
+      <input
+        type="file"
+        #fileInput
+        style="display: none"
+        (change)="onFileSelected($event)"
+      />
+      <button type="button" (click)="imageInput.click()" title="Attach Image">🖼️</button>
+      <button type="button" (click)="fileInput.click()" title="Attach File">📎</button>
+    </div>
+
+    <button (click)="sendMessage()" [disabled]="!userInput.trim()">Send</button>
+  </div>
+</div>
+
+
+
